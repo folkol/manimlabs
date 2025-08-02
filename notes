@@ -1,0 +1,40 @@
+# Kicking the Manim tyres
+
+## ChatGPT
+
+Here’s the blunt take: Manim isn’t magic-it’s just Python code that spits out SVGs and PNGs which get stitched into video by FFmpeg. Once you grok its core mental model (Scenes, Mobjects, Animations → frames → video), the rest is tooling. Below is a workflow that’s served me well in PyCharm:
+
+1. Get started
+
+$ python3 -m venv .env
+$ source .env/bin/activate
+$ pip install manim
+$ manim --version
+$ brew install ffmpeg
+$ manim --version
+...
+
+2. Grasp the mental model
+	•	Scene: a class subclassing Scene (or GraphScene, ThreeDScene, etc.).
+	•	Mobjects: vector objects (circles, lines, Tex, etc.) you add to the scene.
+	•	Animations: you call self.play(…) on Mobjects with Anims (e.g. FadeIn, Transform).
+	•	Render pipeline:
+	1.	construct() builds frame-by-frame descriptions
+	2.	Manim rasterizes each frame
+	3.	FFmpeg stitches frames into a video
+
+> Treat each Scene class as a “function” that outputs one video file.
+
+3. Quick‐iterate vs. final render
+•	Low‐quality preview:
+manim -pql my_scene.py MyScene
+
+	•	-p = auto-play with your system video player
+	•	-p = auto-play with your system video player
+
+•	High‐quality final:
+manim -pqh my_scene.py MyScene
+... or even -pqm (medium) for a balance.
+
+Always develop with -pql; switch to -pqh just before “publishing.”
+
