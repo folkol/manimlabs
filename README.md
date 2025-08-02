@@ -1,6 +1,6 @@
 # Manim labs
 
-Trying to get a grip on https://www.manim.community[](Manim)
+Trying to get a grip on [https://www.manim.community](Manim)
 
 ## Links
 
